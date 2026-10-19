@@ -9,7 +9,9 @@ const app = express();
 
 // Middlewares
 app.use(cors({
-  origin: config.clientUrl,
+  origin(origin, callback) {
+    callback(null, !origin || config.allowedOrigins.includes(origin));
+  },
   credentials: true
 }));
 app.use(express.json());

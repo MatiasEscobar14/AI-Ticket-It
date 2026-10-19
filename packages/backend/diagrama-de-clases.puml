@@ -1,0 +1,88 @@
+@startuml backend-diagrama-de-clases
+skinparam classAttributeIconSize 0
+
+class CambioEstadoCompra {
+	compra: Compra
+	estado: EstadoCompra
+	quien: Usuario
+	fechaHora: DateTime
+}
+
+class Compra {
+	comprador: Usuario
+	evento: Evento
+	tipoEntrada: TipoEntrada
+	cantidad: Int
+	total: Double
+	estado: EstadoCompra
+	mensajes: Mensaje[]
+	actualizarEstado(estado: EstadoCompra): void
+}
+
+class Resenia {
+	comprador: Usuario
+	evento: Evento
+	detalle: String
+	puntuacion: Double
+}
+
+class Usuario {
+	nombre: String
+	apellido: String
+	favoritos: Evento[]
+}
+
+class Mensaje {
+	usuario: Usuario
+	mensaje: String
+	enviado: DateTime
+}
+
+class Evento {
+	nombre: String
+	descripcion: String
+	categoria: Categoria
+	fecha: DateTime
+	tiposEntrada: TipoEntrada[]
+	multimedia: String[]
+	organizador: Usuario
+	tuPrecioEstaEntre(min: Int, max: Int): Boolean
+}
+
+enum EstadoCompra {
+	PENDIENTE
+	CONFIRMADA
+	UTILIZADA
+	CANCELADA
+	REEMBOLSADA
+}
+
+class Categoria {
+	nombre: String
+	descripcion: String
+}
+
+class TipoEntrada {
+	nombre: String
+	descripcion: String
+	precio: Double
+	cupo: Int
+	hayCupoPara(cantidad: Int): Boolean
+}
+
+CambioEstadoCompra --> Compra : compra
+CambioEstadoCompra --> EstadoCompra : estado
+CambioEstadoCompra --> Usuario : quien
+Compra --> Usuario : comprador
+Compra --> Evento : evento
+Compra --> TipoEntrada : tipoEntrada
+Compra --> EstadoCompra : estado
+Compra "1" --> "0..*" Mensaje : mensajes
+Resenia --> Usuario : comprador
+Resenia --> Evento : evento
+Usuario "0..*" --> "0..*" Evento : favoritos
+Evento "0..*" --> "1" Usuario : organizador
+Evento --> Categoria : categoria
+Evento "1" --> "0..*" TipoEntrada : tiposEntrada
+
+@enduml
