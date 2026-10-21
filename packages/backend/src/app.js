@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { config } from './config/index.js';
-import apiRoutes from './routes/index.js';
+import apiRoutes from './routes/Routers.js';
 import { notFound } from './middlewares/notFound.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 
@@ -23,7 +23,14 @@ app.get('/', (req, res) => {
     message: 'Bienvenido a la API del Trabajo Práctico',
     endpoints: {
       health: '/api/health',
-      items: '/api/items'
+      usuarios: '/api/Usuario',
+      compras: '/api/Compra',
+      resenias: '/api/Resenia',
+      mensajes: '/api/Mensaje',
+      eventos: '/api/Evento',
+      categorias: '/api/Categoria',
+      tiposEntrada: '/api/TipoEntrada',
+      cambiosEstadoCompra: '/api/CambioEstadoCompra'
     }
   });
 });

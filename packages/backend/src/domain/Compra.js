@@ -3,9 +3,21 @@ import { EstadoCompra } from './EstadoCompra.js';
 
 export default class Compra {
     constructor(comprador, evento, tipoEntrada, cantidad, total, estado, mensajes = []) {
+        Compra.validarDatos({ comprador, evento, tipoEntrada, cantidad, total, estado });
+
+        this.comprador = comprador;
+        this.evento = evento;
+        this.tipoEntrada = tipoEntrada;
+        this.cantidad = cantidad;
+        this.total = total;
+        this.estado = estado;
+        this.mensajes = [];
+    }
+
+    static validarDatos({ comprador, evento, tipoEntrada, cantidad, total, estado }) {
         if (!comprador || !evento || !tipoEntrada) {
             throw new DomainValidationError('Comprador, evento y tipo de entrada son obligatorios');
-    }
+        }
         if (!Number.isInteger(cantidad) || cantidad <= 0) {
             throw new DomainValidationError('La cantidad debe ser un entero mayor que cero');
         }
@@ -15,17 +27,10 @@ export default class Compra {
         if (!Object.values(EstadoCompra).includes(estado)) {
             throw new DomainValidationError('El estado de compra no es válido');
         }
-        if (!Array.isArray(mensajes)) {
-            throw new DomainValidationError('Los mensajes deben ser una lista');
-        }
+    }
 
-        this.comprador = comprador;
-        this.evento = evento;
-        this.tipoEntrada = tipoEntrada;
-        this.cantidad = cantidad;
-        this.total = total;
-        this.estado = estado;
-        this.mensajes = [...mensajes];
+    agregarMensaje(mensaje) {
+        this.mensajes.push(mensaje);
     }
 
     actualizarEstado(estado) {

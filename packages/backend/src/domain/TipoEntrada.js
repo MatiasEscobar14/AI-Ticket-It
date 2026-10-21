@@ -2,9 +2,18 @@ import { DomainValidationError } from './Errors/DomainError.js';
 
 export default class TipoEntrada {
     constructor(nombre, descripcion, precio, cupo) {
+        TipoEntrada.validarDatos({ nombre, descripcion, precio, cupo });
+
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.cupo = cupo;
+    }
+
+    static validarDatos({ nombre, descripcion, precio, cupo }) {
         if (typeof nombre !== 'string' || !nombre.trim()) {
             throw new DomainValidationError('El nombre del tipo de entrada es obligatorio');
-    }
+        }
         if (typeof descripcion !== 'string' || !descripcion.trim()) {
             throw new DomainValidationError('La descripción del tipo de entrada es obligatoria');
         }
@@ -14,11 +23,6 @@ export default class TipoEntrada {
         if (!Number.isInteger(cupo) || cupo < 0) {
             throw new DomainValidationError('El cupo debe ser un entero no negativo');
         }
-
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.cupo = cupo;
     }
 
     hayCupoPara(cantidad) {
