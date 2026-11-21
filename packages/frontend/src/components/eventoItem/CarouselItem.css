@@ -1,0 +1,45 @@
+.evento-card {
+  box-sizing: border-box;
+  flex: 0 0 33.333%;
+  min-width: 0;
+  padding: 0 0.5rem;
+}
+
+.evento-card-image {
+  border-radius: 0.5rem 0.5rem 0 0;
+  display: block;
+  height: 180px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.evento-card-content {
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  height: 100%;
+  padding: 1rem;
+}
+
+.evento-card:has(.evento-card-image) .evento-card-content {
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.evento-card-category {
+  color: #666;
+  font-size: 0.875rem;
+  margin: 0 0 0.5rem;
+}
+
+.evento-card-title {
+  margin: 0 0 0.5rem;
+}
+
+.evento-card-date,
+.evento-card-description {
+  margin: 0 0 0.75rem;
+}
+
+.evento-card-price {
+  font-weight: 700;
+  margin: 0;
+}

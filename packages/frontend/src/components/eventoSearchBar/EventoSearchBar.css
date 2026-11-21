@@ -1,0 +1,144 @@
+.evento-search {
+  background: #fff;
+  border: 1px solid #e1ebe6;
+  border-radius: 1rem;
+  box-shadow: 0 12px 32px rgb(16 60 50 / 8%);
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 760px;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  text-align: left;
+  width: 100%;
+}
+
+.evento-search-heading {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.evento-search-icon {
+  align-items: center;
+  background: #e8f4ee;
+  border-radius: 0.85rem;
+  color: #17634e;
+  display: flex;
+  flex: 0 0 3rem;
+  font-size: 1.3rem;
+  height: 3rem;
+  justify-content: center;
+}
+
+.evento-search-heading h1 {
+  color: #173c32;
+  font-size: clamp(1.35rem, 3vw, 1.8rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+  margin: 0 0 0.3rem;
+}
+
+.evento-search-heading p {
+  color: #66756e;
+  font-size: 0.95rem;
+}
+
+.evento-search-controls {
+  align-items: end;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.search-field {
+  display: block;
+  flex: 1;
+  min-width: 0;
+}
+
+.field-label {
+  color: #334b40;
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 650;
+  margin-bottom: 0.45rem;
+}
+
+.search-input-wrapper {
+  align-items: center;
+  background: #fff;
+  border: 1px solid #cfdcd5;
+  border-radius: 0.65rem;
+  box-sizing: border-box;
+  display: flex;
+  gap: 0.65rem;
+  min-height: 3rem;
+  padding: 0 0.9rem;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+  width: 100%;
+}
+
+.search-input-wrapper:focus-within {
+  border-color: #247a5e;
+  box-shadow: 0 0 0 3px rgb(36 122 94 / 15%);
+}
+
+.search-input-icon {
+  color: #718078;
+  flex: 0 0 auto;
+}
+
+.search-input {
+  background: transparent;
+  border: 0;
+  color: #20352c;
+  font: inherit;
+  font-size: 0.95rem;
+  min-width: 0;
+  outline: 0;
+  padding: 0.65rem 0;
+  width: 100%;
+}
+
+.search-input::placeholder {
+  color: #87948d;
+}
+
+.search-button {
+  align-items: center;
+  background: #17634e;
+  border: 1px solid #17634e;
+  border-radius: 0.65rem;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 650;
+  gap: 0.55rem;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0 1.25rem;
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.search-button:hover {
+  background: #104c3b;
+  transform: translateY(-1px);
+}
+
+.search-button:focus-visible {
+  outline: 3px solid rgb(36 122 94 / 35%);
+  outline-offset: 2px;
+}
+
+@media (max-width: 520px) {
+  .evento-search-controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .search-button {
+    width: 100%;
+  }
+}

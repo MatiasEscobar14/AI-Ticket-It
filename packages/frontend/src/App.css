@@ -1,211 +1,38 @@
-:root {
-  --primary-color: #2563eb;
-  --primary-hover: #1d4ed8;
-  --bg-color: #f8fafc;
-  --card-bg: #ffffff;
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
-  --border-color: #e2e8f0;
-  --danger-color: #ef4444;
-  --danger-hover: #dc2626;
-  --success-color: #22c55e;
-}
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-primary);
-}
-
-.container {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 0 1.5rem;
-}
-
-.header {
+.App {
   text-align: center;
-  margin-bottom: 2rem;
 }
 
-.header h1 {
-  font-size: 2.2rem;
-  margin-bottom: 0.5rem;
-  color: var(--text-primary);
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
 }
 
-.subtitle {
-  color: var(--text-secondary);
-  font-size: 1.1rem;
-}
-
-.card {
-  background: var(--card-bg);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--border-color);
-}
-
-.card h2 {
-  margin-top: 0;
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
-}
-
-.helper-text {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  margin-bottom: 1.25rem;
-}
-
-.helper-text code {
-  background: #f1f5f9;
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
-  font-size: 0.9em;
-}
-
-.status-indicator-container {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-  font-size: 1.05rem;
-}
-
-.status-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.status-dot.online {
-  background-color: var(--success-color);
-  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
-}
-
-.status-dot.offline {
-  background-color: var(--danger-color);
-  box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
-}
-
-.backend-info {
-  margin-bottom: 1rem;
-  color: var(--text-secondary);
-}
-
-.error-message {
-  color: var(--danger-color);
-  background-color: #fef2f2;
-  border: 1px solid #fecaca;
-  padding: 0.75rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-}
-
-.form-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-}
-
-@media (min-width: 600px) {
-  .form-item {
-    flex-direction: row;
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
   }
 }
 
-.form-item input {
-  flex: 1;
-  padding: 0.65rem 0.85rem;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  font-size: 1rem;
-  outline: none;
-}
-
-.form-item input:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
-}
-
-button {
-  cursor: pointer;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  border: none;
-  padding: 0.65rem 1rem;
-  transition: background-color 0.15s ease;
-}
-
-.btn-primary {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: var(--primary-hover);
-}
-
-.btn-secondary {
-  background-color: #f1f5f9;
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-}
-
-.btn-secondary:hover {
-  background-color: #e2e8f0;
-}
-
-.btn-danger {
-  background-color: transparent;
-  color: var(--danger-color);
-  border: 1px solid var(--danger-color);
-  padding: 0.4rem 0.75rem;
-  font-size: 0.85rem;
-}
-
-.btn-danger:hover {
-  background-color: var(--danger-color);
-  color: white;
-}
-
-.items-list {
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-}
-
-.item-card {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0.85rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  background-color: #fafafa;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
-.item-card h3 {
-  margin: 0 0 0.25rem 0;
-  font-size: 1.05rem;
+.App-link {
+  color: #61dafb;
 }
 
-.item-card p {
-  margin: 0;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-}
-
-.empty-state {
-  text-align: center;
-  color: var(--text-secondary);
-  padding: 1.5rem;
-  font-style: italic;
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -14,8 +14,8 @@ export default class Resenia {
         if (!comprador || !evento || typeof detalle !== 'string' || !detalle.trim()) {
             throw new DomainValidationError('Comprador, evento y detalle son obligatorios');
         }
-        if (typeof puntuacion !== 'number' || !Number.isFinite(puntuacion) || puntuacion < 0) {
-            throw new DomainValidationError('La puntuación debe ser un número no negativo');
+        if (typeof puntuacion !== 'number' || !Number.isFinite(puntuacion) || puntuacion < 0 || puntuacion > 5) {
+            throw new DomainValidationError('La puntuación debe ser un número entre 0 y 5');
         }
     }
 }

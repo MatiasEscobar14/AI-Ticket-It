@@ -1,4 +1,5 @@
 import Categoria from '../domain/Categoria.js';
+import { NotFoundError } from '../errors/AppError.js';
 
 export default class CategoriaService {
     constructor(CategoriaRepository) {
@@ -15,9 +16,7 @@ export default class CategoriaService {
     buscarExistente = async (id) => {
         const existente = await this.CategoriaRepository.findById(id);
         if (!existente) {
-            const error = new Error(`La categoría con id ${id} no existe`);
-            error.statusCode = 404;
-            throw error;
+            throw new NotFoundError(`La categoría con id ${id} no existe`);
         }
         return existente;
     };

@@ -11,6 +11,21 @@ export default class CompraController {
         }
     };
 
+    getByComprador = async (req, res, next) => {
+        try {
+            res.status(200).json(await this.CompraService.getByComprador(req.params.id));
+        } catch (error) {
+            next(error);
+        }
+    };
+    getByEvento = async (req, res, next) => {
+        try {
+            res.status(200).json(await this.CompraService.getByEvento(req.params.id));
+        } catch (error) {
+            next(error);
+        }
+    }
+
     create = async (req, res, next) => {
         try {
             res.status(201).json(await this.CompraService.create(req.body));
@@ -30,6 +45,14 @@ export default class CompraController {
     path = async (req, res, next) => {
         try {
             res.status(200).json(await this.CompraService.path(req.params.id, req.body));
+        } catch (error) {
+            next(error);
+        }
+    };
+
+    cancelar = async (req, res, next) => {
+        try {
+            res.status(200).json(await this.CompraService.cancelar(req.params.id));
         } catch (error) {
             next(error);
         }

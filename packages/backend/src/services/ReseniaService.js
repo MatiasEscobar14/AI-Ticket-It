@@ -1,13 +1,34 @@
 import Resenia from '../domain/Resenia.js';
+import { ConflictError, NotFoundError } from '../errors/AppError.js';
 
 export default class ReseniaService {
-    constructor(ReseniaRepository) {
+    constructor(ReseniaRepository, CompraRepository = null) {
         this.ReseniaRepository = ReseniaRepository;
+        this.CompraRepository = CompraRepository;
     }
 
     getAll = async () => this.ReseniaRepository.getAll();
 
     create = async (nuevo) => {
+        if (this.CompraRepository) {
+            const compras = await this.CompraRepository.findByComprador(nuevo.comprador);
+            const puedeReseniar = compras.some((compra) =>
+                String(compra.evento?._id ?? compra.evento?.id ?? compra.evento) === String(nuevo.evento)
+                && compra.estado === 'utilizada'
+            );
+            if (!puedeReseniar) {
+                throw new ConflictError('Solo podés reseñar un evento después de utilizar una entrada');
+            }
+
+            const yaReseniada = (await this.getAll()).some((resenia) =>
+                String(resenia.comprador?._id ?? resenia.comprador?.id ?? resenia.comprador) === String(nuevo.comprador)
+                && String(resenia.evento?._id ?? resenia.evento?.id ?? resenia.evento) === String(nuevo.evento)
+            );
+            if (yaReseniada) {
+                throw new ConflictError('Ya existe una reseña para esta compra');
+            }
+        }
+
         const resenia = new Resenia(
             nuevo.comprador,
             nuevo.evento,
@@ -20,9 +41,7 @@ export default class ReseniaService {
     buscarExistente = async (id) => {
         const existente = await this.ReseniaRepository.findById(id);
         if (!existente) {
-            const error = new Error(`La reseña con id ${id} no existe`);
-            error.statusCode = 404;
-            throw error;
+            throw new NotFoundError(`La reseña con id ${id} no existe`);
         }
         return existente;
     };

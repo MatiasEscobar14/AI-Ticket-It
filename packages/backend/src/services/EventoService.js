@@ -1,4 +1,5 @@
 import Evento from '../domain/Evento.js';
+import { NotFoundError } from '../errors/AppError.js';
 
 export default class EventoService {
     constructor(EventoRepository) {
@@ -15,18 +16,16 @@ export default class EventoService {
             nuevo.categoria,
             fecha,
             nuevo.multimedia ?? [],
-            nuevo.organizador
+            nuevo.organizador,
+            nuevo.tiposEntrada ?? []
         );
-        evento.tiposEntrada = nuevo.tiposEntrada ?? [];
         return this.EventoRepository.save(evento);
     };
 
     buscarExistente = async (id) => {
         const existente = await this.EventoRepository.findById(id);
         if (!existente) {
-            const error = new Error(`El evento con id ${id} no existe`);
-            error.statusCode = 404;
-            throw error;
+            throw new NotFoundError(`El evento con id ${id} no existe`);
         }
         return existente;
     };
@@ -39,17 +38,17 @@ export default class EventoService {
             datos.categoria,
             fecha,
             datos.multimedia ?? [],
-            datos.organizador
+            datos.organizador,
+            datos.tiposEntrada ?? []
         );
         evento._id = existente._id;
-        evento.tiposEntrada = datos.tiposEntrada ?? [];
         return this.EventoRepository.save(evento);
     };
 
     update = async (id, datos) => {
         const existente = await this.buscarExistente(id);
         const valoresActuales = typeof existente.toObject === 'function'
-            ? existente.toObject()
+            ? existente.toObject({ virtuals: false, transform: false })
             : existente;
         return this.aplicarCambios(existente, { ...valoresActuales, ...datos });
     };

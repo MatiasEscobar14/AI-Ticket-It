@@ -1,41 +1,60 @@
 import TipoEntrada from '../domain/TipoEntrada.js';
+import { NotFoundError } from '../errors/AppError.js';
 
 export default class TipoEntradaService {
-    constructor(TipoEntradaRepository) {
+    constructor(TipoEntradaRepository, EventoRepository) {
         this.TipoEntradaRepository = TipoEntradaRepository;
+        this.EventoRepository = EventoRepository;
     }
 
     getAll = async () => this.TipoEntradaRepository.getAll();
 
+    buscarEvento = async (id) => {
+        const evento = await this.EventoRepository.findById(id);
+        if (!evento) {
+            throw new NotFoundError(`El evento con id ${id} no existe`);
+        }
+        return evento;
+    };
+
     create = async (nuevo) => {
+        await this.buscarEvento(nuevo.evento);
         const tipoEntrada = new TipoEntrada(
             nuevo.nombre,
             nuevo.descripcion,
             nuevo.precio,
             nuevo.cupo
         );
-        return this.TipoEntradaRepository.save(tipoEntrada);
+        const guardado = await this.TipoEntradaRepository.save(tipoEntrada, nuevo.evento);
+        if (!guardado) {
+            throw new NotFoundError(`No se pudo agregar el tipo de entrada al evento ${nuevo.evento}`);
+        }
+        return guardado;
     };
 
     buscarExistente = async (id) => {
         const existente = await this.TipoEntradaRepository.findById(id);
         if (!existente) {
-            const error = new Error(`El tipo de entrada con id ${id} no existe`);
-            error.statusCode = 404;
-            throw error;
+            throw new NotFoundError(`El tipo de entrada con id ${id} no existe`);
         }
         return existente;
     };
 
     aplicarCambios = async (existente, datos) => {
+        const eventoId = datos.evento ?? existente.evento;
+        await this.buscarEvento(eventoId);
         const tipoEntrada = new TipoEntrada(
             datos.nombre,
             datos.descripcion,
             datos.precio,
             datos.cupo
         );
-        tipoEntrada._id = existente._id;
-        return this.TipoEntradaRepository.save(tipoEntrada);
+        tipoEntrada._id = existente._id ?? existente.id;
+        const guardado = await this.TipoEntradaRepository.save(tipoEntrada, eventoId);
+        if (!guardado) {
+            throw new NotFoundError(`El tipo de entrada con id ${existente._id ?? existente.id} no existe`);
+        }
+        return guardado;
     };
 
     update = async (id, datos) => {

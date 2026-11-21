@@ -2,6 +2,8 @@
 
 Repositorio estructurado en 2 módulos independientes para el desarrollo del Trabajo Práctico: **Backend** (API REST con Node.js y Express) y **Frontend** (SPA con React y Vite).
 
+Cada repository del backend mantiene sus datos en su propio array en memoria; no hace falta instalar ni configurar una base de datos. Los datos se conservan durante la ejecución del servidor y se reinician al detenerlo.
+
 ---
 
 ## Estructura del Repositorio

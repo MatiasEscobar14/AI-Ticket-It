@@ -1,4 +1,5 @@
 import Mensaje from '../domain/Mensaje.js';
+import { NotFoundError } from '../errors/AppError.js';
 
 export default class MensajeService {
     constructor(MensajeRepository) {
@@ -16,9 +17,7 @@ export default class MensajeService {
     buscarExistente = async (id) => {
         const existente = await this.MensajeRepository.findById(id);
         if (!existente) {
-            const error = new Error(`El mensaje con id ${id} no existe`);
-            error.statusCode = 404;
-            throw error;
+            throw new NotFoundError(`El mensaje con id ${id} no existe`);
         }
         return existente;
     };

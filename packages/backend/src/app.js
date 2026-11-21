@@ -25,6 +25,7 @@ app.get('/', (req, res) => {
       health: '/api/health',
       usuarios: '/api/Usuario',
       compras: '/api/Compra',
+      comprasPorComprador: '/api/Compra/comprador/:id',
       resenias: '/api/Resenia',
       mensajes: '/api/Mensaje',
       eventos: '/api/Evento',

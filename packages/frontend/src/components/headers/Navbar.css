@@ -1,0 +1,93 @@
+.ticket-main {
+    flex: 1;
+    width: 100%;
+}
+
+.ticket-navbar {
+    border-bottom: 3px solid var(--border);
+    background: var(--surface);
+}
+
+.ticket-navbar-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.85rem 1.5rem;
+    max-width: 1072px;
+    margin: 0 auto;
+    padding: 0.85rem 1rem;
+}
+
+.ticket-brand,
+.ticket-brand:hover {
+    color: var(--text);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.ticket-navbar-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.ticket-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.ticket-tabs button,
+.ticket-logout {
+    min-height: 48px;
+    padding: 0.45rem 0.85rem;
+    border: 2px solid var(--border);
+    border-radius: 0.6rem;
+    background: var(--surface);
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.ticket-logout {
+    background: var(--surface);
+    color: var(--text);
+}
+
+.ticket-tabs button[aria-current="page"] {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: var(--on-primary);
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+}
+
+@media (max-width: 640px) {
+    .ticket-navbar-inner {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .ticket-navbar-actions {
+        width: 100%;
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .ticket-tabs {
+        width: 100%;
+    }
+
+    .ticket-tabs button,
+    .ticket-logout {
+        flex: 1 1 auto;
+    }
+
+    .ticket-logout {
+        width: 100%;
+    }
+}

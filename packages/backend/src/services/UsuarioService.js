@@ -1,4 +1,5 @@
 import Usuario from '../domain/Usuario.js';
+import { NotFoundError } from '../errors/AppError.js';
 
 export default class UsuarioService {
     constructor(UsuarioRepository) {
@@ -15,9 +16,7 @@ export default class UsuarioService {
     buscarExistente = async (id) => {
         const existente = await this.UsuarioRepository.findById(id);
         if (!existente) {
-            const error = new Error(`El usuario con id ${id} no existe`);
-            error.statusCode = 404;
-            throw error;
+            throw new NotFoundError(`El usuario con id ${id} no existe`);
         }
         return existente;
     };

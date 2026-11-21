@@ -1,4 +1,5 @@
 import CambioEstadoCompra from '../domain/CambioEstadoCompra.js';
+import { BadRequestError, NotFoundError } from '../errors/AppError.js';
 
 export default class CambioEstadoCompraService {
     constructor(CambioEstadoCompraRepository, CompraRepository, UsuarioRepository) {
@@ -11,17 +12,13 @@ export default class CambioEstadoCompraService {
 
     validarCompra = async (compra) => {
         if (!(await this.CompraRepository.exists(compra))) {
-            const error = new Error(`La compra con id ${compra} no existe`);
-            error.statusCode = 400;
-            throw error;
+            throw new BadRequestError(`La compra con id ${compra} no existe`);
         }
     };
 
     validarUsuario = async (usuario) => {
         if (!(await this.UsuarioRepository.exists(usuario))) {
-            const error = new Error(`El usuario con id ${usuario} no existe`);
-            error.statusCode = 400;
-            throw error;
+            throw new BadRequestError(`El usuario con id ${usuario} no existe`);
         }
     };
 
@@ -41,9 +38,7 @@ export default class CambioEstadoCompraService {
     buscarExistente = async (id) => {
         const existente = await this.CambioEstadoCompraRepository.findById(id);
         if (!existente) {
-            const error = new Error(`El cambio de estado de compra con id ${id} no existe`);
-            error.statusCode = 404;
-            throw error;
+            throw new NotFoundError(`El cambio de estado de compra con id ${id} no existe`);
         }
         return existente;
     };
