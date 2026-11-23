@@ -23,4 +23,12 @@ export const eventoSchema = z
   })
   .strict()
 
-export const eventoPatchSchema = patchSchema(eventoSchema)
+const tipoEntradaUpdateSchema = tipoEntradaSchema
+  .extend({ id: objectIdSchema.optional() })
+  .strict()
+
+export const eventoUpdateSchema = eventoSchema
+  .extend({ tiposEntrada: z.array(tipoEntradaUpdateSchema).optional() })
+  .strict()
+
+export const eventoPatchSchema = patchSchema(eventoUpdateSchema)

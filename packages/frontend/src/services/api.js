@@ -44,6 +44,14 @@ export const api = {
     return request('/Evento', jsonRequest('POST', event));
   },
 
+  async updateEvent(id, event) {
+    return request(`/Evento/${encodeURIComponent(id)}`, jsonRequest('PUT', event));
+  },
+
+  async deleteEvent(id) {
+    return request(`/Evento/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  },
+
   async createPurchase(purchase) {
     return request('/Compra', jsonRequest('POST', purchase));
   },

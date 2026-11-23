@@ -13,7 +13,7 @@ function formatearFecha(fecha) {
   }).format(fechaEvento);
 }
 
-export default function CarouselItem({ evento }) {
+export default function CarouselItem({ evento, onOpen }) {
   const nombreCategoria =
     typeof evento.categoria === "string"
       ? evento.categoria
@@ -44,6 +44,14 @@ export default function CarouselItem({ evento }) {
             Desde ${precioMinimo.toLocaleString("es-AR")}
           </p>
         )}
+        <button
+          type="button"
+          className="evento-card-button"
+          onClick={onOpen}
+          aria-label={`Ver entradas de ${evento.nombre}`}
+        >
+          Ver entradas
+        </button>
       </div>
     </article>
   );

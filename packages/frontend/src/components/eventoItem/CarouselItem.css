@@ -14,8 +14,11 @@
 }
 
 .evento-card-content {
-  border: 1px solid #ddd;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   padding: 1rem;
 }
@@ -25,9 +28,13 @@
 }
 
 .evento-card-category {
-  color: #666;
+  align-self: flex-start;
+  background: var(--info-bg);
+  border-radius: 0.35rem;
+  color: var(--info);
   font-size: 0.875rem;
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.75rem;
+  padding: 0.2rem 0.55rem;
 }
 
 .evento-card-title {
@@ -41,5 +48,40 @@
 
 .evento-card-price {
   font-weight: 700;
-  margin: 0;
+  margin: 0 0 1rem;
+}
+
+.evento-card-button {
+  align-self: flex-start;
+  background: var(--primary);
+  border: 2px solid var(--primary);
+  border-radius: 0.5rem;
+  color: var(--on-primary);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  margin-top: auto;
+  padding: 0.6rem 1rem;
+  transition: transform 0.2s ease;
+}
+
+.evento-card-button:hover {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 900px) {
+  .evento-card {
+    flex-basis: 50%;
+  }
+}
+
+@media (max-width: 630px) {
+  .evento-card {
+    flex-basis: 100%;
+    padding: 0 0.25rem;
+  }
+
+  .evento-card-content {
+    padding: 0.85rem;
+  }
 }

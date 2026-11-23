@@ -312,6 +312,35 @@ const Home = () => {
         }
     };
 
+    const updateEvent = async (eventId, eventData) => {
+        try {
+            await api.updateEvent(eventId, {
+                ...eventData,
+                organizador: activeUser.id,
+                multimedia: [],
+            });
+            await refreshDashboard();
+            setError('');
+            announce('Evento actualizado.');
+        } catch (updateError) {
+            setError(updateError.message);
+            throw updateError;
+        }
+    };
+
+    const deleteEvent = async (eventId) => {
+        try {
+            await api.deleteEvent(eventId);
+            setOrganizerPurchases([]);
+            await refreshDashboard();
+            setError('');
+            announce('Evento eliminado.');
+        } catch (deleteError) {
+            setError(deleteError.message);
+            throw deleteError;
+        }
+    };
+
     const updatePurchaseStatus = async (purchaseId, status) => {
         try {
             await api.updatePurchase(purchaseId, { estado: status.toLowerCase() });
@@ -366,7 +395,9 @@ const Home = () => {
         return (
             <div className="home-content">
                 <section className="session-start" aria-labelledby="h-session-start">
-                    <h1 id="h-session-start" tabIndex="-1">Empezá con tu nombre y apellido</h1>
+                    <h1 id="h-session-start" tabIndex="-1">
+                        Bienvenido a Ticket It. Ingresá tu nombre y apellido.
+                    </h1>
                     <form className="session-start-form" onSubmit={startSession}>
                         <div>
                             <label htmlFor="session-first-name">Nombre</label>
@@ -441,8 +472,13 @@ const Home = () => {
                 eventsById={eventsById}
                 categories={categories}
                 selectedEventId={organizerEventId}
-                onSelectEvent={setOrganizerEventId}
+                onSelectEvent={(eventId) => {
+                    setOrganizerPurchases([]);
+                    setOrganizerEventId(eventId);
+                }}
                 onCreateEvent={createEvent}
+                onUpdateEvent={updateEvent}
+                onDeleteEvent={deleteEvent}
                 onUpdateStatus={updatePurchaseStatus}
                 onChat={(id) => openChat(id, 'organizador')}
             />
@@ -455,9 +491,11 @@ const Home = () => {
         <div className="home-content">
             <div className="sr-only" aria-live="polite">{announcement}</div>
             {error && <p className="form-error" role="alert">{error}</p>}
-            <p className="demo-user-note">
-                {userName(activeUser)} · Vista de {activeRole}
-            </p>
+            {activeRole !== 'organizador' && (
+                <p className="demo-user-note">
+                    ¡Hola, {userName(activeUser)}. Bienvenido a Ticket It. ¿Listo para ir a un evento?
+                </p>
+            )}
             {content}
         </div>
     );
