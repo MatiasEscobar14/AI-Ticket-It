@@ -66,6 +66,7 @@ const Home = () => {
         setActiveRole,
         setActiveUser,
     } = useOutletContext();
+    const [initialUser] = useState(activeUser);
     const [events, setEvents] = useState([]);
     const [categories, setCategories] = useState([]);
     const [users, setUsers] = useState([]);
@@ -152,9 +153,9 @@ const Home = () => {
                 const demoData = await prepareDemoData();
                 if (!active) return;
                 setOrganizerAccount(demoData.organizer);
-                const dashboard = await loadDashboard();
+                const dashboard = await loadDashboard(initialUser?.id ?? null);
                 if (!active) return;
-                applyDashboard(dashboard, null);
+                applyDashboard(dashboard, initialUser);
             } catch (loadError) {
                 if (active) setError(loadError.message);
             } finally {
@@ -163,7 +164,7 @@ const Home = () => {
         };
         initialize();
         return () => { active = false; };
-    }, []);
+    }, [initialUser]);
 
     const startSession = async (formEvent) => {
         formEvent.preventDefault();
@@ -176,9 +177,12 @@ const Home = () => {
             setError('');
             const role = identifyRole(nombre, apellido, organizerAccount);
             const isOrganizer = role === 'organizador';
+            const existingBuyer = users.find(
+                (user) => user.nombre === nombre && user.apellido === apellido
+            );
             const user = isOrganizer
                 ? organizerAccount
-                : await api.createUser({ nombre, apellido, favoritos: [] });
+                : existingBuyer || await api.createUser({ nombre, apellido, favoritos: [] });
             const dashboard = await loadDashboard(user.id);
             applyDashboard(dashboard, user);
             setActiveUser(user);
